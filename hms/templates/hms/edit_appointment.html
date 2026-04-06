@@ -1,0 +1,56 @@
+{% extends 'hms/base.html' %}
+
+{% block title %}Edit Appointment{% endblock %}
+
+{% block body %}
+
+<section class="section">
+  <div class="container">
+
+    <div class="section-title">
+      <h2>Edit Appointment</h2>
+    </div>
+
+    <form method="POST" class="php-email-form">
+      {% csrf_token %}
+
+      <div class="row gy-4">
+
+        <div class="col-md-12">
+          <input type="text" name="patient" value="{{ appointment.patient_name }}" class="form-control" placeholder="Patient Name" required>
+        </div>
+
+        <div class="col-md-12">
+          <select name="doctor" class="form-control" required>
+            {% for d in doctors %}
+            <option value="{{ d.id }}" {% if d.id == appointment.doctor.id %}selected{% endif %}>
+              {{ d.name }}
+            </option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <input type="date" name="date" value="{{ appointment.date }}" class="form-control" required>
+        </div>
+
+        <div class="col-md-6">
+          <input type="time" name="time" value="{{ appointment.time }}" class="form-control" required>
+        </div>
+
+        <div class="col-md-12">
+          <textarea name="message" class="form-control" rows="4">{{ appointment.message }}</textarea>
+        </div>
+
+        <div class="col-md-12 text-center">
+          <button type="submit" class="btn btn-success">Update Appointment</button>
+        </div>
+
+      </div>
+
+    </form>
+
+  </div>
+</section>
+
+{% endblock %}

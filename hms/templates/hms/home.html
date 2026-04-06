@@ -1,0 +1,55 @@
+{% extends 'hms/base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+
+<section class="section" style="margin-top: 50px;">
+  <div class="container">
+
+    <div class="section-title">
+      <h2>Book Appointment</h2>
+    </div>
+
+    <form method="POST" action="{% url 'add_appointment' %}" class="php-email-form">
+      {% csrf_token %}
+
+      <div class="row gy-4">
+
+        <div class="col-md-12">
+          <input type="text" name="patient" class="form-control" placeholder="Patient Name" required>
+        </div>
+
+        <div class="col-md-12">
+          <select name="doctor" class="form-control" required>
+            <option value="">Select Doctor</option>
+            {% for d in doctors %}
+            <option value="{{ d.id }}">{{ d.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <input type="date" name="date" class="form-control" required>
+        </div>
+
+        <div class="col-md-6">
+          <input type="time" name="time" class="form-control" required>
+        </div>
+
+        <div class="col-md-12">
+          <textarea name="message" class="form-control" placeholder="Message"></textarea>
+        </div>
+
+        <div class="col-md-12 text-center">
+          <button type="submit" class="btn btn-primary">Book Appointment</button>
+        </div>
+
+      </div>
+
+    </form>
+
+  </div>
+</section>
+
+{% endblock %}
